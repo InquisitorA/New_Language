@@ -1,0 +1,1462 @@
+
+state 0:
+
+	START : . program 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 3
+	program	goto 2
+	statement	goto 1
+	START	goto 84
+
+	.	error
+
+
+state 1:
+
+	program : statement . TERM program 
+	program : statement .  (reduce by rule 2)
+
+	TERM	shift 14
+
+
+	.	reduce by rule 2
+
+
+state 2:
+
+	START : program .  (reduce by rule 0)
+
+
+
+	.	reduce by rule 0
+
+
+state 3:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+	statement : exp .  (reduce by rule 3)
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	reduce by rule 3
+
+
+state 4:
+
+	exp : LET . decl IN exp END 
+
+	ID	shift 26
+
+	decl	goto 25
+
+	.	error
+
+
+state 5:
+
+	exp : NEGATE . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 27
+
+	.	error
+
+
+state 6:
+
+	exp : LPAREN . exp RPAREN 
+	exp : LPAREN . exp exp RPAREN 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 28
+
+	.	error
+
+
+state 7:
+
+	exp : NOT . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 29
+
+	.	error
+
+
+state 8:
+
+	exp : IF . exp THEN exp ELSE exp FI 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 30
+
+	.	error
+
+
+state 9:
+
+	exp : FN . LPAREN ID COLON Type RPAREN COLON Type DARROW exp 
+
+	LPAREN	shift 31
+
+
+	.	error
+
+
+state 10:
+
+	exp : FUN . ID LPAREN ID COLON Type RPAREN COLON Type DARROW exp 
+
+	ID	shift 32
+
+
+	.	error
+
+
+state 11:
+
+	exp : NUM .  (reduce by rule 18)
+
+
+
+	.	reduce by rule 18
+
+
+state 12:
+
+	exp : ID .  (reduce by rule 17)
+
+
+
+	.	reduce by rule 17
+
+
+state 13:
+
+	exp : CONST .  (reduce by rule 16)
+
+
+
+	.	reduce by rule 16
+
+
+state 14:
+
+	program : statement TERM . program 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 3
+	program	goto 33
+	statement	goto 1
+
+	.	error
+
+
+state 15:
+
+	exp : exp GREATERTHAN . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 34
+
+	.	error
+
+
+state 16:
+
+	exp : exp LESSERTHAN . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 35
+
+	.	error
+
+
+state 17:
+
+	exp : exp TIMES . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 36
+
+	.	error
+
+
+state 18:
+
+	exp : exp MINUS . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 37
+
+	.	error
+
+
+state 19:
+
+	exp : exp PLUS . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 38
+
+	.	error
+
+
+state 20:
+
+	exp : exp IMPLIES . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 39
+
+	.	error
+
+
+state 21:
+
+	exp : exp EQUALS . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 40
+
+	.	error
+
+
+state 22:
+
+	exp : exp XOR . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 41
+
+	.	error
+
+
+state 23:
+
+	exp : exp OR . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 42
+
+	.	error
+
+
+state 24:
+
+	exp : exp AND . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 43
+
+	.	error
+
+
+state 25:
+
+	exp : LET decl . IN exp END 
+
+	IN	shift 44
+
+
+	.	error
+
+
+state 26:
+
+	decl : ID . EQ exp 
+
+	EQ	shift 45
+
+
+	.	error
+
+
+state 27:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : NEGATE exp .  (reduce by rule 22)
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+
+
+	.	reduce by rule 22
+
+
+state 28:
+
+	exp : LPAREN exp . RPAREN 
+	exp : LPAREN exp . exp RPAREN 
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	NOT	shift 7
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	LPAREN	shift 6
+	RPAREN	shift 47
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	NEGATE	shift 5
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+	LET	shift 4
+
+	exp	goto 46
+
+	.	error
+
+
+state 29:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+	exp : NOT exp .  (reduce by rule 30)
+
+
+
+	.	reduce by rule 30
+
+
+state 30:
+
+	exp : IF exp . THEN exp ELSE exp FI 
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	THEN	shift 48
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	error
+
+
+state 31:
+
+	exp : FN LPAREN . ID COLON Type RPAREN COLON Type DARROW exp 
+
+	ID	shift 49
+
+
+	.	error
+
+
+state 32:
+
+	exp : FUN ID . LPAREN ID COLON Type RPAREN COLON Type DARROW exp 
+
+	LPAREN	shift 50
+
+
+	.	error
+
+
+state 33:
+
+	program : statement TERM program .  (reduce by rule 1)
+
+
+
+	.	reduce by rule 1
+
+
+state 34:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp GREATERTHAN exp .  (reduce by rule 28)
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+
+
+	.	reduce by rule 28
+
+
+state 35:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+	exp : exp LESSERTHAN exp .  (reduce by rule 29)
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+
+
+	.	reduce by rule 29
+
+
+state 36:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp TIMES exp .  (reduce by rule 21)
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+
+
+	.	reduce by rule 21
+
+
+state 37:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp MINUS exp .  (reduce by rule 20)
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	TIMES	shift 17
+
+
+	.	reduce by rule 20
+
+
+state 38:
+
+	exp : exp . PLUS exp 
+	exp : exp PLUS exp .  (reduce by rule 19)
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	TIMES	shift 17
+
+
+	.	reduce by rule 19
+
+
+state 39:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp IMPLIES exp .  (reduce by rule 26)
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	reduce by rule 26
+
+
+state 40:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp EQUALS exp .  (reduce by rule 27)
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+
+
+	.	reduce by rule 27
+
+
+state 41:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp XOR exp .  (reduce by rule 25)
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+
+
+	.	reduce by rule 25
+
+
+state 42:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp OR exp .  (reduce by rule 24)
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+
+
+	.	reduce by rule 24
+
+
+state 43:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp AND exp .  (reduce by rule 23)
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+
+
+	.	reduce by rule 23
+
+
+state 44:
+
+	exp : LET decl IN . exp END 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 51
+
+	.	error
+
+
+state 45:
+
+	decl : ID EQ . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 52
+
+	.	error
+
+
+state 46:
+
+	exp : LPAREN exp exp . RPAREN 
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	RPAREN	shift 53
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	error
+
+
+state 47:
+
+	exp : LPAREN exp RPAREN .  (reduce by rule 14)
+
+
+
+	.	reduce by rule 14
+
+
+state 48:
+
+	exp : IF exp THEN . exp ELSE exp FI 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 54
+
+	.	error
+
+
+state 49:
+
+	exp : FN LPAREN ID . COLON Type RPAREN COLON Type DARROW exp 
+
+	COLON	shift 55
+
+
+	.	error
+
+
+state 50:
+
+	exp : FUN ID LPAREN . ID COLON Type RPAREN COLON Type DARROW exp 
+
+	ID	shift 56
+
+
+	.	error
+
+
+state 51:
+
+	exp : LET decl IN exp . END 
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+	END	shift 57
+
+
+	.	error
+
+
+state 52:
+
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+	decl : ID EQ exp .  (reduce by rule 4)
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	reduce by rule 4
+
+
+state 53:
+
+	exp : LPAREN exp exp RPAREN .  (reduce by rule 15)
+
+
+
+	.	reduce by rule 15
+
+
+state 54:
+
+	exp : IF exp THEN exp . ELSE exp FI 
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	ELSE	shift 58
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	error
+
+
+state 55:
+
+	exp : FN LPAREN ID COLON . Type RPAREN COLON Type DARROW exp 
+
+	LPAREN	shift 63
+	BOOL	shift 62
+	INT	shift 61
+	STR	shift 60
+
+	Type	goto 59
+
+	.	error
+
+
+state 56:
+
+	exp : FUN ID LPAREN ID . COLON Type RPAREN COLON Type DARROW exp 
+
+	COLON	shift 64
+
+
+	.	error
+
+
+state 57:
+
+	exp : LET decl IN exp END .  (reduce by rule 10)
+
+
+
+	.	reduce by rule 10
+
+
+state 58:
+
+	exp : IF exp THEN exp ELSE . exp FI 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 65
+
+	.	error
+
+
+state 59:
+
+	exp : FN LPAREN ID COLON Type . RPAREN COLON Type DARROW exp 
+	Type : Type . SARROW Type 
+
+	SARROW	shift 67
+	RPAREN	shift 66
+
+
+	.	error
+
+
+state 60:
+
+	Type : STR .  (reduce by rule 9)
+
+
+
+	.	reduce by rule 9
+
+
+state 61:
+
+	Type : INT .  (reduce by rule 7)
+
+
+
+	.	reduce by rule 7
+
+
+state 62:
+
+	Type : BOOL .  (reduce by rule 8)
+
+
+
+	.	reduce by rule 8
+
+
+state 63:
+
+	Type : LPAREN . Type SARROW Type RPAREN 
+
+	LPAREN	shift 63
+	BOOL	shift 62
+	INT	shift 61
+	STR	shift 60
+
+	Type	goto 68
+
+	.	error
+
+
+state 64:
+
+	exp : FUN ID LPAREN ID COLON . Type RPAREN COLON Type DARROW exp 
+
+	LPAREN	shift 63
+	BOOL	shift 62
+	INT	shift 61
+	STR	shift 60
+
+	Type	goto 69
+
+	.	error
+
+
+state 65:
+
+	exp : IF exp THEN exp ELSE exp . FI 
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	FI	shift 70
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	error
+
+
+state 66:
+
+	exp : FN LPAREN ID COLON Type RPAREN . COLON Type DARROW exp 
+
+	COLON	shift 71
+
+
+	.	error
+
+
+state 67:
+
+	Type : Type SARROW . Type 
+
+	LPAREN	shift 63
+	BOOL	shift 62
+	INT	shift 61
+	STR	shift 60
+
+	Type	goto 72
+
+	.	error
+
+
+state 68:
+
+	Type : Type . SARROW Type 
+	Type : LPAREN Type . SARROW Type RPAREN 
+
+	SARROW	shift 73
+
+
+	.	error
+
+
+state 69:
+
+	exp : FUN ID LPAREN ID COLON Type . RPAREN COLON Type DARROW exp 
+	Type : Type . SARROW Type 
+
+	SARROW	shift 67
+	RPAREN	shift 74
+
+
+	.	error
+
+
+state 70:
+
+	exp : IF exp THEN exp ELSE exp FI .  (reduce by rule 11)
+
+
+
+	.	reduce by rule 11
+
+
+state 71:
+
+	exp : FN LPAREN ID COLON Type RPAREN COLON . Type DARROW exp 
+
+	LPAREN	shift 63
+	BOOL	shift 62
+	INT	shift 61
+	STR	shift 60
+
+	Type	goto 75
+
+	.	error
+
+
+state 72:
+
+	Type : Type . SARROW Type 
+	Type : Type SARROW Type .  (reduce by rule 5)
+
+	SARROW	shift 67
+
+
+	.	reduce by rule 5
+
+
+state 73:
+
+	Type : Type SARROW . Type 
+	Type : LPAREN Type SARROW . Type RPAREN 
+
+	LPAREN	shift 63
+	BOOL	shift 62
+	INT	shift 61
+	STR	shift 60
+
+	Type	goto 76
+
+	.	error
+
+
+state 74:
+
+	exp : FUN ID LPAREN ID COLON Type RPAREN . COLON Type DARROW exp 
+
+	COLON	shift 77
+
+
+	.	error
+
+
+state 75:
+
+	exp : FN LPAREN ID COLON Type RPAREN COLON Type . DARROW exp 
+	Type : Type . SARROW Type 
+
+	DARROW	shift 78
+	SARROW	shift 67
+
+
+	.	error
+
+
+state 76:
+
+	Type : Type . SARROW Type 
+	Type : Type SARROW Type .  (reduce by rule 5)
+	Type : LPAREN Type SARROW Type . RPAREN 
+
+	SARROW	shift 67
+	RPAREN	shift 79
+
+
+	.	error
+
+
+state 77:
+
+	exp : FUN ID LPAREN ID COLON Type RPAREN COLON . Type DARROW exp 
+
+	LPAREN	shift 63
+	BOOL	shift 62
+	INT	shift 61
+	STR	shift 60
+
+	Type	goto 80
+
+	.	error
+
+
+state 78:
+
+	exp : FN LPAREN ID COLON Type RPAREN COLON Type DARROW . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 81
+
+	.	error
+
+
+state 79:
+
+	Type : LPAREN Type SARROW Type RPAREN .  (reduce by rule 6)
+
+
+
+	.	reduce by rule 6
+
+
+state 80:
+
+	exp : FUN ID LPAREN ID COLON Type RPAREN COLON Type . DARROW exp 
+	Type : Type . SARROW Type 
+
+	DARROW	shift 82
+	SARROW	shift 67
+
+
+	.	error
+
+
+state 81:
+
+	exp : FN LPAREN ID COLON Type RPAREN COLON Type DARROW exp .  (reduce by rule 12)
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	reduce by rule 12
+
+
+state 82:
+
+	exp : FUN ID LPAREN ID COLON Type RPAREN COLON Type DARROW . exp 
+
+	CONST	shift 13
+	ID	shift 12
+	NUM	shift 11
+	FUN	shift 10
+	FN	shift 9
+	IF	shift 8
+	NOT	shift 7
+	LPAREN	shift 6
+	NEGATE	shift 5
+	LET	shift 4
+
+	exp	goto 83
+
+	.	error
+
+
+state 83:
+
+	exp : FUN ID LPAREN ID COLON Type RPAREN COLON Type DARROW exp .  (reduce by rule 13)
+	exp : exp . PLUS exp 
+	exp : exp . MINUS exp 
+	exp : exp . TIMES exp 
+	exp : exp . AND exp 
+	exp : exp . OR exp 
+	exp : exp . XOR exp 
+	exp : exp . IMPLIES exp 
+	exp : exp . EQUALS exp 
+	exp : exp . GREATERTHAN exp 
+	exp : exp . LESSERTHAN exp 
+
+	AND	shift 24
+	OR	shift 23
+	XOR	shift 22
+	EQUALS	shift 21
+	IMPLIES	shift 20
+	PLUS	shift 19
+	MINUS	shift 18
+	TIMES	shift 17
+	LESSERTHAN	shift 16
+	GREATERTHAN	shift 15
+
+
+	.	reduce by rule 13
+
+
+state 84:
+
+
+	EOF	accept
+
+
+	.	error
+
+194 of 513 action table entries left after compaction
+36 goto table entries
